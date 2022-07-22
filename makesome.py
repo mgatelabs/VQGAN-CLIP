@@ -20,9 +20,9 @@ MAX_EPOCHS=int(sys.argv[3])
 IMAGE_SIZE = 400
 IMAGE_OFFSET = 5
 
-#MODELNAME = 'vqgan_imagenet_f16_16384'
-#MODELNAME = 'wikiart_16384'
-MODELNAME = 'coco'
+#MODALNAME = 'vqgan_imagenet_f16_16384'
+#MODALNAME = 'wikiart_16384'
+MODALNAME = 'coco'
 
 LR = 0.1
 OPTIMISER = "Adam"
@@ -31,7 +31,7 @@ MAX_ITERATIONS = 750
 for i in range(0, MAX_EPOCHS):
     SEED = random.randint(13, 99999999)
     print(f'Frame: {i} - Seed: {SEED}')
-    gen_image(TEXT, OPTIMISER, SEED, MAX_ITERATIONS, MODELNAME, PREFIX + str(i) + ".png", LR, None)
+    gen_image(TEXT, OPTIMISER, SEED, MAX_ITERATIONS, MODALNAME, PREFIX + str(i) + ".png", LR, None)
 
 columns = 3;
 rows = math.floor(MAX_EPOCHS / 3)

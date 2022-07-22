@@ -9,7 +9,7 @@ def make_video(file_pattern):
     #ffmpeg -y -i "$FILENAME_NO_EXT"-%04d."$FILE_EXTENSION" -b:v 8M -c:v h264_nvenc -pix_fmt yuv420p -strict -2 -filter:v "minterpolate='mi_mode=mci:mc_mode=aobmc:vsbmc=1:fps=60'" video.mp4
     subprocess.run(cmds, stdout=subprocess.PIPE).stdout.decode('utf-8')
 
-def gen_image(PROMPT, OPTIMISER, SEED, ITTERATIONS, MODELNAME, OUTPUT_FILENAME, LR, INPUT_IMAGE):
+def gen_image(PROMPT, OPTIMISER, SEED, ITTERATIONS, MODALNAME, OUTPUT_FILENAME, LR, INPUT_IMAGE):
     cmds = []
     # Program
     cmds.append('python')
@@ -33,9 +33,9 @@ def gen_image(PROMPT, OPTIMISER, SEED, ITTERATIONS, MODELNAME, OUTPUT_FILENAME, 
     cmds.append('100')  
     # Checkpoint
     cmds.append('-ckpt')
-    cmds.append(f'checkpoints/{MODELNAME}.ckpt')
+    cmds.append(f'checkpoints/{MODALNAME}.ckpt')
     cmds.append('-conf')
-    cmds.append(f'checkpoints/{MODELNAME}.yaml')
+    cmds.append(f'checkpoints/{MODALNAME}.yaml')
     cmds.append('-o')
     cmds.append(OUTPUT_FILENAME)
     cmds.append('-lr')

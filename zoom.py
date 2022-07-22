@@ -21,9 +21,9 @@ MAX_EPOCHS=int(sys.argv[3])
 RESIZE = True
 VIDEO = False
 
-#MODELNAME = 'vqgan_imagenet_f16_16384'
-#MODELNAME = 'wikiart_16384'
-MODELNAME = 'coco'
+#MODALNAME = 'vqgan_imagenet_f16_16384'
+#MODALNAME = 'wikiart_16384'
+MODALNAME = 'coco'
 
 LR = 0.1
 OPTIMISER = "Adam"
@@ -39,7 +39,7 @@ FILENAME_NO_EXT = Path(FILENAME).stem #${FILENAME%.*}
 FILE_EXTENSION = Path(FILENAME).suffix
 
 print('Frame 0')
-gen_image(TEXT, OPTIMISER, SEED, MAX_ITERATIONS, MODELNAME, FILENAME, LR, None)
+gen_image(TEXT, OPTIMISER, SEED, MAX_ITERATIONS, MODALNAME, FILENAME, LR, None)
 shutil.copyfile(FILENAME, FILENAME_NO_EXT+"-0000" + FILE_EXTENSION) #cp "$FILENAME" "$FILENAME_NO_EXT"-0000."$FILE_EXTENSION"
 cmds = ['magick', FILENAME, '-distort', 'SRT', f'{SCALE_FACTOR},0', '-gravity', 'center', FILENAME]
 subprocess.run(cmds, stdout=subprocess.PIPE).stdout.decode('utf-8') #convert "$FILENAME" -distort SRT 1.01,0 -gravity center "$FILENAME"	# Zoom
@@ -53,7 +53,7 @@ if VIDEO:
     for i in range(1, MAX_EPOCHS):
         print(f'Frame {i}')
         padded_count = str(i).zfill(4) # padded_count=$(printf "%04d" "$i")
-        gen_image(TEXT, OPTIMISER, SEED, MAX_ITERATIONS, MODELNAME, FILENAME, LR, FILENAME)
+        gen_image(TEXT, OPTIMISER, SEED, MAX_ITERATIONS, MODALNAME, FILENAME, LR, FILENAME)
         shutil.copyfile(FILENAME, FILENAME_NO_EXT + "-" + padded_count + FILE_EXTENSION) #  cp "$FILENAME" "$FILENAME_NO_EXT"-"$padded_count"."$FILE_EXTENSION"    
         cmds = ['magick', FILENAME, '-distort', 'SRT', f'{SCALE_FACTOR},0', '-gravity', 'center', FILENAME]
         subprocess.run(cmds, stdout=subprocess.PIPE).stdout.decode('utf-8') #  convert "$FILENAME" -distort SRT 1.01,0 -gravity center "$FILENAME" # Zoom
